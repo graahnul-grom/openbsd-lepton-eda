@@ -2,10 +2,10 @@
 
 COMMENT =	lepton electronic design automation suite
 
-DISTNAME =	lepton-eda-1.9.14
+DISTNAME =	lepton-eda-1.9.15
 
-SHARED_LIBS +=	lepton               8.0      # 8.0
-SHARED_LIBS +=	leptongui            2.0      # 2.0
+SHARED_LIBS +=	lepton               9.0      # 9.0
+SHARED_LIBS +=	leptongui            3.0      # 3.0
 
 CATEGORIES =	cad
 
@@ -24,7 +24,7 @@ WANTLIB +=	m pango-1.0 pangocairo-1.0 pangoft2-1.0 pcre pixman-1 png pthread
 WANTLIB +=	unistring xcb-render xcb-shm xcb z fribidi
 
 MASTER_SITES =	\
-	https://github.com/lepton-eda/lepton-eda/releases/download/1.9.14-20210407/
+	https://github.com/lepton-eda/lepton-eda/releases/download/1.9.15-20210626/
 
 COMPILER =		base-clang ports-gcc base-gcc
 
