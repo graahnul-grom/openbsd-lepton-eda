@@ -3,7 +3,7 @@ Lepton EDA for OpenBSD
 
 Lepton EDA port for OpenBSD.
 <br />
-Current version: [1.9.14](https://github.com/lepton-eda/lepton-eda/releases/tag/1.9.14-20210407).
+Current version: [1.9.15](https://github.com/lepton-eda/lepton-eda/releases/tag/1.9.15-20210626).
 <br />
 <br />
 
