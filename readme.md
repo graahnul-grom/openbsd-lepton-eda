@@ -18,26 +18,3 @@ supports the same file format for symbols and schematics.
 <br />
 <br />
 
-
-How to install
---------------
-Clone the repository:
-```
-$ git clone https://github.com/graahnul-grom/openbsd-lepton-eda.git
-```
-
-Copy cad/lepton-eda directory to /usr/ports/cad/:
-```
-cp -a openbsd-lepton-eda/cad/lepton-eda /usr/ports/cad/
-```
-
-Go to the port's directory:
-```
-cd /usr/ports/cad/lepton-eda/
-```
-
-Build and install:
-```
-make install
-```
-
