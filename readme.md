@@ -7,7 +7,8 @@ Current version: [1.9.17](https://github.com/lepton-eda/lepton-eda/releases/tag/
 <br />
 
 
-Since OpenBSD 7.1 binary package is available: use `pkg_add lepton-eda` to install.
+Since [OpenBSD 7.1](https://www.openbsd.org/71.html)
+binary package is available: use `pkg_add lepton-eda` to install.
 <br />
 
 
