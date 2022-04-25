@@ -1,0 +1,267 @@
+Index: Makefile
+===================================================================
+RCS file: /cvs/ports/cad/lepton-eda/Makefile,v
+retrieving revision 1.3
+diff -u -p -r1.3 Makefile
+--- Makefile	27 Mar 2022 10:26:39 -0000	1.3
++++ Makefile	28 Mar 2022 10:20:26 -0000
+@@ -2,7 +2,7 @@ COMMENT =	lepton electronic design autom
+ 
+ V =		1.9.17-20211219
+ DISTNAME =	lepton-eda-${V:C/-.*//}
+-REVISION =	0
++REVISION =	1
+ 
+ SHARED_LIBS +=	lepton               0.0      # 10.0
+ SHARED_LIBS +=	leptongui            0.0      # 4.0
+@@ -52,18 +52,27 @@ CONFIGURE_ENV =	GROFF=false \
+ 		MAKEINFO=gmakeinfo \
+ 		M4=/usr/bin/m4
+ 
+-# XXX make sure guile2 headers are picked up first (over guile1);               
+-# cannot use CPPFLAGS/CFLAGS since they get appended last                       
+-CONFIGURE_ENV +=	"CC=${CC} -I${LOCALBASE}/include/guile/2.2"             
++# XXX make sure guile2 headers are picked up first (over guile1);
++# cannot use CPPFLAGS/CFLAGS since they get appended last
++CONFIGURE_ENV +=	"CC=${CC} -I${LOCALBASE}/include/guile/2.2"
+ CONFIGURE_ENV +=	"CXX=${CXX} -I${LOCALBASE}/include/guile/2.2"
+ 
+ post-install:
+-	# would be nice to precompile the guile files otherwise
+-	# they're done per-user at startup. it should be similar
+-	# to this, but it needs more to get it to work:
+-	# cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} \
+-	#     prefix=${PREFIX} precompile
+ 	mv ${PREFIX}/share/doc/lepton-eda/examples \
+ 	    ${PREFIX}/share/examples/lepton-eda
++
++	# precompile guile source files:
++	cd ${WRKSRC} && ${SETENV} \
++	${MAKE_ENV} \
++	LEPTON_SCM_PRECOMPILE=1 \
++	LEPTON_SCM_PRECOMPILE_SCRIPT=${WRKINST}/usr/local/share/lepton-eda/scheme/schematic/precompile.scm \
++	LEPTON_SCM_PRECOMPILE_SCM_DIR=${WRKINST}/usr/local/share/lepton-eda/scheme \
++	LEPTON_SCM_PRECOMPILE_OUT_DIR=${WRKINST}/usr/local/share/lepton-eda/ccache \
++	LEPTON_SCM_PRECOMPILE_RECURSIVE=1 \
++	LEPTON_SCM_PRECOMPILE_FNAME_EXT=.scm \
++	LD_LIBRARY_PATH=${WRKINST}/usr/local/lib \
++	GUILE_AUTO_COMPILE=0 \
++	GUILE_LOAD_PATH=${WRKINST}/usr/local/share/lepton-eda/scheme \
++	${WRKINST}/usr/local/bin/lepton-schematic
+ 
+ .include <bsd.port.mk>
+Index: pkg/PLIST
+===================================================================
+RCS file: /cvs/ports/cad/lepton-eda/pkg/PLIST,v
+retrieving revision 1.1.1.1
+diff -u -p -r1.1.1.1 PLIST
+--- pkg/PLIST	18 Mar 2022 09:42:36 -0000	1.1.1.1
++++ pkg/PLIST	28 Mar 2022 10:20:29 -0000
+@@ -2765,6 +2765,207 @@ share/locale/zh_CN/LC_MESSAGES/liblepton
+ share/locale/zh_TW/LC_MESSAGES/liblepton.mo
+ share/locale/zh_TW/LC_MESSAGES/libleptongui.mo
+ share/mime/packages/liblepton.xml
++share/lepton-eda/ccache/
++share/lepton-eda/ccache/backend/
++share/lepton-eda/ccache/backend/gnet-spice-noqsi.go
++share/lepton-eda/ccache/backend/gnet-gsch2pcb.go
++share/lepton-eda/ccache/backend/gnet-vipec.go
++share/lepton-eda/ccache/backend/gnet-vhdl.go
++share/lepton-eda/ccache/backend/gnet-verilog.go
++share/lepton-eda/ccache/backend/gnet-vams.go
++share/lepton-eda/ccache/backend/gnet-tEDAx.go
++share/lepton-eda/ccache/backend/gnet-tango.go
++share/lepton-eda/ccache/backend/gnet-systemc.go
++share/lepton-eda/ccache/backend/gnet-switcap.go
++share/lepton-eda/ccache/backend/gnet-partslist3.go
++share/lepton-eda/ccache/backend/gnet-redac.go
++share/lepton-eda/ccache/backend/gnet-protelII.go
++share/lepton-eda/ccache/backend/gnet-pcbpins.go
++share/lepton-eda/ccache/backend/gnet-PCB.go
++share/lepton-eda/ccache/backend/gnet-partslist2.go
++share/lepton-eda/ccache/backend/gnet-partslist1.go
++share/lepton-eda/ccache/backend/gnet-pads.go
++share/lepton-eda/ccache/backend/spice/
++share/lepton-eda/ccache/backend/spice/common.go
++share/lepton-eda/ccache/backend/gnet-osmond.go
++share/lepton-eda/ccache/backend/gnet-maxascii.go
++share/lepton-eda/ccache/backend/gnet-mathematica.go
++share/lepton-eda/ccache/backend/gnet-makedepend.go
++share/lepton-eda/ccache/backend/gnet-liquidpcb.go
++share/lepton-eda/ccache/backend/gnet-gossip.go
++share/lepton-eda/ccache/backend/gnet-geda.go
++share/lepton-eda/ccache/backend/gnet-futurenet2.go
++share/lepton-eda/ccache/backend/gnet-ewnet.go
++share/lepton-eda/ccache/backend/gnet-eagle.go
++share/lepton-eda/ccache/backend/gnet-drc2.go
++share/lepton-eda/ccache/backend/gnet-drc.go
++share/lepton-eda/ccache/backend/gnet-cascade.go
++share/lepton-eda/ccache/backend/gnet-calay.go
++share/lepton-eda/ccache/backend/gnet-bom2.go
++share/lepton-eda/ccache/backend/gnet-bom.go
++share/lepton-eda/ccache/backend/gnet-bae.go
++share/lepton-eda/ccache/backend/gnet-allegro.go
++share/lepton-eda/ccache/auto-uref.go
++share/lepton-eda/ccache/pcb.go
++share/lepton-eda/ccache/default-attrib-positions.go
++share/lepton-eda/ccache/autoload/
++share/lepton-eda/ccache/autoload/config-symbol-libraries.go
++share/lepton-eda/ccache/autoload/config-netlist.go
++share/lepton-eda/ccache/conf/
++share/lepton-eda/ccache/conf/schematic/
++share/lepton-eda/ccache/conf/schematic/deprecated.go
++share/lepton-eda/ccache/conf/schematic/stroke.go
++share/lepton-eda/ccache/conf/schematic/menu.go
++share/lepton-eda/ccache/conf/schematic/keys.go
++share/lepton-eda/ccache/conf/schematic/attribs.go
++share/lepton-eda/ccache/auto-place-netname.go
++share/lepton-eda/ccache/auto-place-attribs.go
++share/lepton-eda/ccache/auto-refdes.go
++share/lepton-eda/ccache/schematic/
++share/lepton-eda/ccache/schematic/precompile.go
++share/lepton-eda/ccache/schematic/gschemdoc.go
++share/lepton-eda/ccache/schematic/window.go
++share/lepton-eda/ccache/schematic/undo.go
++share/lepton-eda/ccache/schematic/util.go
++share/lepton-eda/ccache/schematic/selection.go
++share/lepton-eda/ccache/schematic/repl.go
++share/lepton-eda/ccache/schematic/gui/
++share/lepton-eda/ccache/schematic/gui/stroke.go
++share/lepton-eda/ccache/schematic/gui/keymap.go
++share/lepton-eda/ccache/schematic/ffi/
++share/lepton-eda/ccache/schematic/ffi/gobject.go
++share/lepton-eda/ccache/schematic/ffi/gtk.go
++share/lepton-eda/ccache/schematic/netlist.go
++share/lepton-eda/ccache/schematic/menu.go
++share/lepton-eda/ccache/schematic/keymap.go
++share/lepton-eda/ccache/schematic/hook.go
++share/lepton-eda/ccache/schematic/ffi.go
++share/lepton-eda/ccache/schematic/dialog.go
++share/lepton-eda/ccache/schematic/builtins.go
++share/lepton-eda/ccache/schematic/attrib.go
++share/lepton-eda/ccache/schematic/action.go
++share/lepton-eda/ccache/schematic/symbol/
++share/lepton-eda/ccache/schematic/symbol/check.go
++share/lepton-eda/ccache/schematic/core/
++share/lepton-eda/ccache/schematic/core/gettext.go
++share/lepton-eda/ccache/gschem/
++share/lepton-eda/ccache/gschem/symbol/
++share/lepton-eda/ccache/gschem/symbol/check.go
++share/lepton-eda/ccache/gschem/deprecated.go
++share/lepton-eda/ccache/gschem/window.go
++share/lepton-eda/ccache/gschem/util.go
++share/lepton-eda/ccache/gschem/selection.go
++share/lepton-eda/ccache/gschem/keymap.go
++share/lepton-eda/ccache/gschem/hook.go
++share/lepton-eda/ccache/gschem/gschemdoc.go
++share/lepton-eda/ccache/gschem/builtins.go
++share/lepton-eda/ccache/gschem/attrib.go
++share/lepton-eda/ccache/gschem/action.go
++share/lepton-eda/ccache/netlist.go
++share/lepton-eda/ccache/color-map.go
++share/lepton-eda/ccache/geda.go
++share/lepton-eda/ccache/geda/
++share/lepton-eda/ccache/geda/deprecated.go
++share/lepton-eda/ccache/geda/library.go
++share/lepton-eda/ccache/geda/log.go
++share/lepton-eda/ccache/geda/config.go
++share/lepton-eda/ccache/geda/os.go
++share/lepton-eda/ccache/geda/attrib.go
++share/lepton-eda/ccache/geda/page.go
++share/lepton-eda/ccache/geda/object.go
++share/lepton-eda/ccache/geda-deprecated-config.go
++share/lepton-eda/ccache/lepton/
++share/lepton-eda/ccache/lepton/version.go
++share/lepton-eda/ccache/lepton/m4.go
++share/lepton-eda/ccache/lepton/library/
++share/lepton-eda/ccache/lepton/library/component.go
++share/lepton-eda/ccache/lepton/ffi/
++share/lepton-eda/ccache/lepton/ffi/lib.go
++share/lepton-eda/ccache/lepton/legacy-config.go
++share/lepton-eda/ccache/lepton/srfi-37.go
++share/lepton-eda/ccache/lepton/repl.go
++share/lepton-eda/ccache/lepton/rc.go
++share/lepton-eda/ccache/lepton/page.go
++share/lepton-eda/ccache/lepton/os.go
++share/lepton-eda/ccache/lepton/option.go
++share/lepton-eda/ccache/lepton/object.go
++share/lepton-eda/ccache/lepton/log-rotate.go
++share/lepton-eda/ccache/lepton/log.go
++share/lepton-eda/ccache/lepton/library.go
++share/lepton-eda/ccache/lepton/file-system.go
++share/lepton-eda/ccache/lepton/ffi.go
++share/lepton-eda/ccache/lepton/eval.go
++share/lepton-eda/ccache/lepton/config.go
++share/lepton-eda/ccache/lepton/color-map.go
++share/lepton-eda/ccache/lepton/attrib.go
++share/lepton-eda/ccache/lepton/legacy-config/
++share/lepton-eda/ccache/lepton/legacy-config/keylist.go
++share/lepton-eda/ccache/lepton/core/
++share/lepton-eda/ccache/lepton/core/gettext.go
++share/lepton-eda/ccache/lepton/page/
++share/lepton-eda/ccache/lepton/page/foreign.go
++share/lepton-eda/ccache/lepton/object/
++share/lepton-eda/ccache/lepton/object/foreign.go
++share/lepton-eda/ccache/lepton/object/type.go
++share/lepton-eda/ccache/netlist/
++share/lepton-eda/ccache/netlist/schematic/
++share/lepton-eda/ccache/netlist/schematic/toplevel.go
++share/lepton-eda/ccache/netlist/attrib/
++share/lepton-eda/ccache/netlist/attrib/refdes.go
++share/lepton-eda/ccache/netlist/attrib/compare.go
++share/lepton-eda/ccache/netlist/partlist.go
++share/lepton-eda/ccache/netlist/port.go
++share/lepton-eda/ccache/netlist/subschematic-connection.go
++share/lepton-eda/ccache/netlist/verbose.go
++share/lepton-eda/ccache/netlist/subschematic.go
++share/lepton-eda/ccache/netlist/schematic.go
++share/lepton-eda/ccache/netlist/schematic-port.go
++share/lepton-eda/ccache/netlist/schematic-connection.go
++share/lepton-eda/ccache/netlist/schematic-component.go
++share/lepton-eda/ccache/netlist/package-pin.go
++share/lepton-eda/ccache/netlist/package.go
++share/lepton-eda/ccache/netlist/backend-getopt.go
++share/lepton-eda/ccache/netlist/option.go
++share/lepton-eda/ccache/netlist/net.go
++share/lepton-eda/ccache/netlist/mode.go
++share/lepton-eda/ccache/netlist/hierarchy.go
++share/lepton-eda/ccache/netlist/error.go
++share/lepton-eda/ccache/netlist/duplicate.go
++share/lepton-eda/ccache/netlist/deprecated.go
++share/lepton-eda/ccache/netlist/config.go
++share/lepton-eda/ccache/netlist/partlist/
++share/lepton-eda/ccache/netlist/partlist/common.go
++share/lepton-eda/ccache/symcheck/
++share/lepton-eda/ccache/symcheck/report.go
++share/lepton-eda/ccache/symcheck/option.go
++share/lepton-eda/ccache/symcheck/check.go
++share/lepton-eda/ccache/symbol/
++share/lepton-eda/ccache/symbol/check/
++share/lepton-eda/ccache/symbol/check/primitive.go
++share/lepton-eda/ccache/symbol/check/text.go
++share/lepton-eda/ccache/symbol/check/slot.go
++share/lepton-eda/ccache/symbol/check/pin-attrib.go
++share/lepton-eda/ccache/symbol/check/pin.go
++share/lepton-eda/ccache/symbol/check/picture.go
++share/lepton-eda/ccache/symbol/check/path.go
++share/lepton-eda/ccache/symbol/check/obsolete.go
++share/lepton-eda/ccache/symbol/check/net-attrib.go
++share/lepton-eda/ccache/symbol/check/net.go
++share/lepton-eda/ccache/symbol/check/log.go
++share/lepton-eda/ccache/symbol/check/line.go
++share/lepton-eda/ccache/symbol/check/forbidden.go
++share/lepton-eda/ccache/symbol/check/entity-pin.go
++share/lepton-eda/ccache/symbol/check/duplicate.go
++share/lepton-eda/ccache/symbol/check/connection.go
++share/lepton-eda/ccache/symbol/check/component.go
++share/lepton-eda/ccache/symbol/check/circle.go
++share/lepton-eda/ccache/symbol/check/bus.go
++share/lepton-eda/ccache/symbol/check/box.go
++share/lepton-eda/ccache/symbol/check/attrib.go
++share/lepton-eda/ccache/symbol/check/arc.go
++share/lepton-eda/ccache/symbol/check/alignment.go
++share/lepton-eda/ccache/symbol/check.go
++share/lepton-eda/ccache/symbol/blame.go
+ @tag update-desktop-database
+ @tag update-mime-database
+ @tag gtk-update-icon-cache %D/share/icons/hicolor
