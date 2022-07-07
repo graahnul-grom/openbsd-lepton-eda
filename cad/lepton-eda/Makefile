@@ -44,7 +44,8 @@ LIB_DEPENDS =	devel/gettext,-runtime \
 
 CONFIGURE_STYLE =	gnu
 CONFIGURE_ARGS +=	--disable-attrib \
-			--disable-update-xdg-database
+			--disable-update-xdg-database \
+			--enable-guild
 
 CONFIGURE_ENV =	GROFF=false \
 		GUILE=guile2.2 \
