@@ -52,9 +52,9 @@ CONFIGURE_ENV =	GROFF=false \
 		MAKEINFO=gmakeinfo \
 		M4=/usr/bin/m4
 
-# XXX make sure guile2 headers are picked up first (over guile1);               
-# cannot use CPPFLAGS/CFLAGS since they get appended last                       
-CONFIGURE_ENV +=	"CC=${CC} -I${LOCALBASE}/include/guile/2.2"             
+# XXX make sure guile2 headers are picked up first (over guile1);
+# cannot use CPPFLAGS/CFLAGS since they get appended last
+CONFIGURE_ENV +=	"CC=${CC} -I${LOCALBASE}/include/guile/2.2"
 CONFIGURE_ENV +=	"CXX=${CXX} -I${LOCALBASE}/include/guile/2.2"
 
 post-install:
