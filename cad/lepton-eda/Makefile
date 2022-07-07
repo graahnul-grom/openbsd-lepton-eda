@@ -58,11 +58,6 @@ CONFIGURE_ENV +=	"CC=${CC} -I${LOCALBASE}/include/guile/2.2"
 CONFIGURE_ENV +=	"CXX=${CXX} -I${LOCALBASE}/include/guile/2.2"
 
 post-install:
-	# would be nice to precompile the guile files otherwise
-	# they're done per-user at startup. it should be similar
-	# to this, but it needs more to get it to work:
-	# cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} \
-	#     prefix=${PREFIX} precompile
 	mv ${PREFIX}/share/doc/lepton-eda/examples \
 	    ${PREFIX}/share/examples/lepton-eda
 
