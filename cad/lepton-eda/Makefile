@@ -1,11 +1,11 @@
 COMMENT =	lepton electronic design automation suite
 
-V =		1.9.17-20211219
+V =		1.9.18-20220529
 DISTNAME =	lepton-eda-${V:C/-.*//}
 REVISION =	0
 
-SHARED_LIBS +=	lepton               0.0      # 10.0
-SHARED_LIBS +=	leptongui            0.0      # 4.0
+SHARED_LIBS +=	lepton               0.0      # 11.0
+SHARED_LIBS +=	leptongui            0.0      # 5.0
 
 CATEGORIES =	cad
 
