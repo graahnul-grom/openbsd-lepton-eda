@@ -58,6 +58,10 @@ CONFIGURE_ENV =	GROFF=false \
 CONFIGURE_ENV +=	"CC=${CC} -I${LOCALBASE}/include/guile/2.2"
 CONFIGURE_ENV +=	"CXX=${CXX} -I${LOCALBASE}/include/guile/2.2"
 
+# suppress tons of warnings
+# "compilation of /usr/local/bin/guild2.2 failed"
+MAKE_ENV +=	"GUILE_AUTO_COMPILE=0"
+
 post-install:
 	mv ${PREFIX}/share/doc/lepton-eda/examples \
 	    ${PREFIX}/share/examples/lepton-eda
