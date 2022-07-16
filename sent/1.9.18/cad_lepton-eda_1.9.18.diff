@@ -4,8 +4,8 @@ RCS file: /cvs/ports/cad/lepton-eda/Makefile,v
 retrieving revision 1.3
 diff -u -p -r1.3 Makefile
 --- Makefile	27 Mar 2022 10:26:39 -0000	1.3
-+++ Makefile	6 Jul 2022 19:52:14 -0000
-@@ -1,11 +1,10 @@
++++ Makefile	12 Jul 2022 18:02:01 -0000
+@@ -1,17 +1,16 @@
  COMMENT =	lepton electronic design automation suite
  
 -V =		1.9.17-20211219
@@ -15,11 +15,18 @@ diff -u -p -r1.3 Makefile
  
 -SHARED_LIBS +=	lepton               0.0      # 10.0
 -SHARED_LIBS +=	leptongui            0.0      # 4.0
-+SHARED_LIBS +=	lepton               0.0      # 11.0
-+SHARED_LIBS +=	leptongui            0.0      # 5.0
++SHARED_LIBS +=	lepton               1.0      # 11.0
++SHARED_LIBS +=	leptongui            1.0      # 5.0
  
  CATEGORIES =	cad
  
+ HOMEPAGE =	https://github.com/lepton-eda/lepton-eda
+ 
+-MAINTAINER =	Dmitry Pryakhin <graahnul.grom@gmail.com>
++MAINTAINER =	Dmitry Pryakhin <graahnul.grom@ya.ru>
+ 
+ # GPLv2+
+ PERMIT_PACKAGE =	Yes
 @@ -44,7 +43,8 @@ LIB_DEPENDS =	devel/gettext,-runtime \
  
  CONFIGURE_STYLE =	gnu
@@ -61,7 +68,7 @@ RCS file: /cvs/ports/cad/lepton-eda/distinfo,v
 retrieving revision 1.1.1.1
 diff -u -p -r1.1.1.1 distinfo
 --- distinfo	18 Mar 2022 09:42:36 -0000	1.1.1.1
-+++ distinfo	6 Jul 2022 19:52:14 -0000
++++ distinfo	12 Jul 2022 18:02:01 -0000
 @@ -1,2 +1,2 @@
 -SHA256 (lepton-eda-1.9.17.tar.gz) = lOneKeJUcw6jOX/3iv9BDWOJ3xip/vGhzxHHNAbtsS8=
 -SIZE (lepton-eda-1.9.17.tar.gz) = 9454425
@@ -73,7 +80,7 @@ RCS file: /cvs/ports/cad/lepton-eda/pkg/PLIST,v
 retrieving revision 1.1.1.1
 diff -u -p -r1.1.1.1 PLIST
 --- pkg/PLIST	18 Mar 2022 09:42:36 -0000	1.1.1.1
-+++ pkg/PLIST	6 Jul 2022 19:52:34 -0000
++++ pkg/PLIST	12 Jul 2022 18:02:07 -0000
 @@ -41,6 +41,7 @@ include/liblepton/export.h
  include/liblepton/fill.h
  include/liblepton/forward.h
