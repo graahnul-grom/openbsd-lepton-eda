@@ -10,7 +10,7 @@ CATEGORIES =	cad
 
 HOMEPAGE =	https://github.com/lepton-eda/lepton-eda
 
-MAINTAINER =	Dmitry Pryakhin <graahnul.grom@gmail.com>
+MAINTAINER =	Dmitry Pryakhin <graahnul.grom@ya.ru>
 
 # GPLv2+
 PERMIT_PACKAGE =	Yes
